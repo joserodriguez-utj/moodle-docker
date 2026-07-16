@@ -20,22 +20,18 @@ This repository contains Docker configuration aimed at Moodle developers and tes
 ## Quick start
 
 ```bash
-# Change ./moodle to your /path/to/moodle if you already have it checked out
-export MOODLE_DOCKER_WWWROOT=./moodle
-
-# Choose a db server (Currently supported: pgsql, mariadb, mysql, mssql, oracle)
-export MOODLE_DOCKER_DB=pgsql
-
-# Get Moodle code, you could select another version branch (skip this if you already got the code)
-git clone -b [MOODLE_BRANCH] git://git.moodle.org/moodle.git $MOODLE_DOCKER_WWWROOT
+# cd /home/rute/moodle-docker
+export MOODLE_DOCKER_WWWROOT=/home/josroes/moodle51-base
+export MOODLE_DOCKER_DB=mariadb
+export MOODLE_DOCKER_WEB_PORT=8000
+export MOODLE_DOCKER_PHP_VERSION=8.3
+export MOODLE_DOCKER_DB_PORT=127.0.0.1:3307
 
 # Ensure customized config.php for the Docker containers is in place
 cp config.docker-template.php $MOODLE_DOCKER_WWWROOT/config.php
 
 # Start up containers
 bin/moodle-docker-compose up -d
-
-# Wait for DB to come up (important for oracle/mssql)
 bin/moodle-docker-wait-for-db
 
 # Work with the containers (see below)
